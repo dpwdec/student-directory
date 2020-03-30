@@ -23,6 +23,14 @@ def print(students)
   end
 end
 
+def print_students_by_letter(students, letter)
+  students.each do |student|
+    if student[:name][0] == letter
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
 def print_footer(names)
   puts "Overall, we have #{names.count} great students."
 end
@@ -46,6 +54,9 @@ def input_students
 end
 
 students = input_students
-print_header
-print(students)
-print_footer(students)
+
+print_students_by_letter(students, "j")
+
+#print_header
+#print(students)
+#print_footer(students)
