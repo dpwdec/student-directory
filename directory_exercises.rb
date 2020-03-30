@@ -24,7 +24,7 @@ end
 def print_students(students)
   if students.count > 0
     students.each_with_index do |student, index|
-      puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)".center(100)
     end
   else
     puts "There are no students"
@@ -78,11 +78,11 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great student#{plural}."
 end
 
-def input_students(students)
+def input_students
   puts "Please enter student information."
   puts "to finish, just hit return twice."
   
-  #students = []
+  students = []
   
   while true do
     
@@ -104,43 +104,13 @@ def input_students(students)
   
 end
 
-#root management for user input
-def interactive_menu
-  
-  students = []
-  
-  loop do
-    puts "1: Input student information."
-    puts "2: Show student information."
-    puts "3: Exit directory."
-    
-    user_selection = gets.chomp
-    
-    case user_selection
-      when "1"
-        students = input_students(students)
-      when "2"
-        print_header
-        print_students(students)
-        print_footer(students)
-      when "3"
-        exit
-      else
-        puts "Invalid option."
-    end
-  end
-end
+students = input_students
 
-
-
-#students = input_students
-interactive_menu
-
-#print_students(students)
+print_students(students)
 
 #print_students_by_letter(students, "j")
 #print_students_names_shorter_than_n(students, 12)
 
 #print_header
 #print(students)
-#print_footer(students)
+print_footer(students)
