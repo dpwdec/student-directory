@@ -31,6 +31,14 @@ def print_students_by_letter(students, letter)
   end
 end
 
+def print_students_names_shorter_than_n(students, name_length)
+  students.each do |student|
+    if student[:name].length < name_length
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
 def print_footer(names)
   puts "Overall, we have #{names.count} great students."
 end
@@ -55,7 +63,8 @@ end
 
 students = input_students
 
-print_students_by_letter(students, "j")
+#print_students_by_letter(students, "j")
+print_students_names_shorter_than_n(students, 12)
 
 #print_header
 #print(students)
