@@ -19,7 +19,7 @@ end
 
 def print(students)
   students.each_with_index do |student, index|
-    puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)".center(100)
   end
 end
 
@@ -61,11 +61,11 @@ def input_students
   
 end
 
-students = input_students
+#students = input_students
 
 #print_students_by_letter(students, "j")
-print_students_names_shorter_than_n(students, 12)
+#print_students_names_shorter_than_n(students, 12)
 
 #print_header
-#print(students)
+print(students)
 #print_footer(students)
