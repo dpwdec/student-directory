@@ -44,24 +44,32 @@ def print_footer(names)
 end
 
 def input_students
-  puts "Please enter the names of the students."
+  puts "Please enter student information."
   puts "to finish, just hit return twice."
   
   students = []
   
-  name = gets.chomp
-  
-  while !name.empty? do
-    students << { name: name, cohort: :november }
-    puts "There are now #{students.count} students"
+  while true do
+    
+    puts "Enter student name:"
     name = gets.chomp
+    
+    break if name.empty?
+    
+    puts "Enter student cohort:"
+    cohort = gets.chomp
+    cohort = :november if cohort.empty?
+    
+    students << { name: name, cohort: cohort.to_sym }
+    puts "There are now #{students.count} students"
+    
   end
   
   return students
   
 end
 
-#students = input_students
+students = input_students
 
 #print_students_by_letter(students, "j")
 #print_students_names_shorter_than_n(students, 12)
