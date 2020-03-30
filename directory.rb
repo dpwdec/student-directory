@@ -84,6 +84,8 @@ def input_students
     
     puts "Enter student name:"
     name = gets.chomp
+    name.delete!("\n")
+    puts name.empty?
     
     break if name.empty?
     
@@ -100,9 +102,9 @@ def input_students
   
 end
 
-#students = input_students
+students = input_students
 
-print_students_by_cohort(students)
+print_students(students)
 
 #print_students_by_letter(students, "j")
 #print_students_names_shorter_than_n(students, 12)
