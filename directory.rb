@@ -1,3 +1,4 @@
+=begin
 students = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
@@ -15,15 +16,18 @@ students = [
 students = [
   {name: "Dr. Hannibal Lecter", cohort: :november} 
 ]
+=end
+
+@students = []
 
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
 
-def print_students(students)
-  if students.count > 0
-    students.each_with_index do |student, index|
+def print_students_list
+  if @students.count > 0
+    @students.each_with_index do |student, index|
       puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
     end
   else
@@ -73,16 +77,14 @@ def print_students_by_cohort(students)
   
 end
 
-def print_footer(names)
-  names.length > 1 ? plural = "s" : plural = ""
-  puts "Overall, we have #{names.count} great student#{plural}."
+def print_footer
+  @students.length > 1 ? plural = "s" : plural = ""
+  puts "Overall, we have #{@students.count} great student#{plural}."
 end
 
-def input_students(students)
+def input_students
   puts "Please enter student information."
   puts "to finish, just hit return twice."
-  
-  #students = []
   
   while true do
     
@@ -95,39 +97,42 @@ def input_students(students)
     cohort = gets.chomp
     cohort = :november if cohort.empty?
     
-    students << { name: name, cohort: cohort.to_sym }
-    puts "There are now #{students.count} students"
+    @students << { name: name, cohort: cohort.to_sym }
+    puts "There are now #{@students.count} students"
     
   end
-  
-  return students
-  
+end
+
+def print_menu_options
+  puts "1: Input student information."
+  puts "2: Show student information."
+  puts "9: Exit directory."
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+    else
+      puts "Invalid option."
+  end
 end
 
 #root management for user input
 def interactive_menu
-  
-  students = []
-  
   loop do
-    puts "1: Input student information."
-    puts "2: Show student information."
-    puts "3: Exit directory."
-    
-    user_selection = gets.chomp
-    
-    case user_selection
-      when "1"
-        students = input_students(students)
-      when "2"
-        print_header
-        print_students(students)
-        print_footer(students)
-      when "3"
-        exit
-      else
-        puts "Invalid option."
-    end
+    print_menu_options
+    process(gets.chomp)
   end
 end
 
