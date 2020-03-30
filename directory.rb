@@ -35,48 +35,6 @@ def print_students_list
   end
 end
 
-def print_students_by_letter(students, letter)
-  students.each do |student|
-    if student[:name][0] == letter
-      puts "#{student[:name]} (#{student[:cohort]} cohort)"
-    end
-  end
-end
-
-def print_students_names_shorter_than_n(students, name_length)
-  students.each do |student|
-    if student[:name].length < name_length
-      puts "#{student[:name]} (#{student[:cohort]} cohort)"
-    end
-  end
-end
-
-def print_students_by_cohort(students)
-  
-  cohorts = Hash.new
-  
-  students.each do |student|
-    if cohorts.has_key?(student[:cohort])
-      cohorts[student[:cohort]] << student[:name]
-    else
-      cohorts[student[:cohort]] = [student[:name]]
-    end
-  end
-  
-  cohorts.each do |key, value|
-    
-    puts "#{key} cohort students:"
-    
-    value.each do |student|
-      puts "#{student}"
-    end
-    
-    puts "----------------------------"
-    
-  end
-  
-end
-
 def print_footer
   @students.length > 1 ? plural = "s" : plural = ""
   puts "Overall, we have #{@students.count} great student#{plural}."
@@ -101,6 +59,12 @@ def input_students
     puts "There are now #{@students.count} students"
     
   end
+end
+
+def save_students
+  
+  
+  
 end
 
 def print_menu_options
@@ -149,3 +113,46 @@ interactive_menu
 #print_header
 #print(students)
 #print_footer(students)
+
+# -----------------------------------
+def print_students_by_letter(students, letter)
+  students.each do |student|
+    if student[:name][0] == letter
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
+def print_students_names_shorter_than_n(students, name_length)
+  students.each do |student|
+    if student[:name].length < name_length
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
+def print_students_by_cohort(students)
+  
+  cohorts = Hash.new
+  
+  students.each do |student|
+    if cohorts.has_key?(student[:cohort])
+      cohorts[student[:cohort]] << student[:name]
+    else
+      cohorts[student[:cohort]] = [student[:name]]
+    end
+  end
+  
+  cohorts.each do |key, value|
+    
+    puts "#{key} cohort students:"
+    
+    value.each do |student|
+      puts "#{student}"
+    end
+    
+    puts "----------------------------"
+    
+  end
+  
+end
