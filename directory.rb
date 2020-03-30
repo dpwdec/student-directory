@@ -1,15 +1,19 @@
 students = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
+  {name: "Nurse Ratched", cohort: :june},
   {name: "Michael Corleone", cohort: :november},
   {name: "Alex DeLarge", cohort: :november},
   {name: "The Wicked Witch of the West", cohort: :november},
   {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
+  {name: "Freddy Krueger", cohort: :june},
   {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
+  {name: "Joffrey Baratheon", cohort: :june},
   {name: "Norman Bates", cohort: :november}
+]
+
+students = [
+  {name: "Dr. Hannibal Lecter", cohort: :november} 
 ]
 
 def print_header
@@ -17,7 +21,7 @@ def print_header
   puts "-------------"
 end
 
-def print(students)
+def print_students(students)
   students.each_with_index do |student, index|
     puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)".center(100)
   end
@@ -39,8 +43,35 @@ def print_students_names_shorter_than_n(students, name_length)
   end
 end
 
+def print_students_by_cohort(students)
+  
+  cohorts = Hash.new
+  
+  students.each do |student|
+    if cohorts.has_key?(student[:cohort])
+      cohorts[student[:cohort]] << student[:name]
+    else
+      cohorts[student[:cohort]] = [student[:name]]
+    end
+  end
+  
+  cohorts.each do |key, value|
+    
+    puts "#{key} cohort students:"
+    
+    value.each do |student|
+      puts "#{student}"
+    end
+    
+    puts "----------------------------"
+    
+  end
+  
+end
+
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students."
+  names.length > 1 ? plural = "s" : plural = ""
+  puts "Overall, we have #{names.count} great student#{plural}."
 end
 
 def input_students
@@ -69,11 +100,13 @@ def input_students
   
 end
 
-students = input_students
+#students = input_students
+
+print_students_by_cohort(students)
 
 #print_students_by_letter(students, "j")
 #print_students_names_shorter_than_n(students, 12)
 
 #print_header
-print(students)
-#print_footer(students)
+#print(students)
+print_footer(students)
