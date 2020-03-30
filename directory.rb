@@ -22,8 +22,12 @@ def print_header
 end
 
 def print_students(students)
-  students.each_with_index do |student, index|
-    puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)".center(100)
+  if students.count > 0
+    students.each_with_index do |student, index|
+      puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)".center(100)
+    end
+  else
+    puts "There are no students"
   end
 end
 
@@ -84,8 +88,6 @@ def input_students
     
     puts "Enter student name:"
     name = gets.chomp
-    name.delete!("\n")
-    puts name.empty?
     
     break if name.empty?
     
