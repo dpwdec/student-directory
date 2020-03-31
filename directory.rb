@@ -18,6 +18,8 @@ students = [
 ]
 =end
 
+require 'csv'
+
 @students = []
 
 def print_header
@@ -75,6 +77,15 @@ def choose_save_file
 end
 
 def save_students(filename = "students.csv")
+  
+  CSV.open(filename, "wb") do |csv_doc|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      csv_doc << csv_line.parse_csv
+    end
+  end
+=begin
   File.open(filename, "w") do |file|
     @students.each do |student|
       student_data = [student[:name], student[:cohort]]
@@ -82,6 +93,7 @@ def save_students(filename = "students.csv")
       file.puts(csv_line)
     end
   end
+=end
   puts "saved #{@students.count} to #{filename}"
 end
 
@@ -98,8 +110,8 @@ def choose_load_file
 end
 
 def load_students(filename = "students.csv")
-  File.open(filename, "r").readlines.each do |line|
-    name, cohort = line.chomp.split(',')
+  CSV.foreach(filename) do |row|
+    name, cohort = row
     add_student(name, cohort)
   end
   puts "loaded #{@students.count} from #{filename}"
@@ -127,8 +139,8 @@ def print_menu_options
   puts_multiple("-------------------------",
   "1: Input student information.",
   "2: Show student information.",
-  "3: Save list of students to students.csv",
-  "4: Load list of students from students.csv",
+  "3: Save list of students.",
+  "4: Load list of students.",
   "9: Exit directory.")
 end
 
