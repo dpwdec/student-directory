@@ -1,23 +1,3 @@
-=begin
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :june},
-  {name: "Michael Corleone", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :june},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :june},
-  {name: "Norman Bates", cohort: :november}
-]
-
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november} 
-]
-=end
-
 require 'csv'
 
 @students = []
