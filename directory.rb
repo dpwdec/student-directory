@@ -41,32 +41,29 @@ def print_footer
 end
 
 def input_students
-  puts "Please enter student information."
-  puts "to finish, just hit return twice."
-  
+  puts_multiple("Please enter student information.", "To finish, just hit return twice.")
   while true do
-    
     puts "Enter student name:"
     name = STDIN.gets.chomp
-    
     break if name.empty?
-    
     puts "Enter student cohort:"
     cohort = STDIN.gets.chomp
     cohort = :november if cohort.empty?
-    
     add_student(name, cohort)
-    puts "There are now #{@students.count} students"
-    
+    puts_multiple("Student added.","There are now #{@students.count} students")
   end
+end
+
+def puts_multiple(*put_args)
+  put_args.each { |arg| puts arg }
 end
 
 def add_student(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+def save_students(filename = "students.csv")
+  file = File.open(filename, "w")
   
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -74,6 +71,7 @@ def save_students
     file.puts(csv_line)
   end
   file.close
+  puts "saved #{@students.count} to #{filename}"
 end
 
 def load_students(filename = "students.csv")
