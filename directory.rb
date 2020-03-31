@@ -132,6 +132,8 @@ def print_menu_options
   "2: Show student information.",
   "3: Save list of students.",
   "4: Load list of students.",
+  "5: Search students by first name letter",
+  "6: Search students by name length",
   "9: Exit directory.")
 end
 
@@ -151,6 +153,10 @@ def process(selection)
       choose_save_file
     when "4"
       choose_load_file
+    when "5"
+      choose_student_letter
+    when "6"
+      choose_student_name_length
     when "9"
       exit
     else
@@ -170,8 +176,6 @@ end
 
 #students = input_students
 #puts ARGV.inspect
-try_load_students
-interactive_menu
 
 #print_students(students)
 
@@ -183,16 +187,42 @@ interactive_menu
 #print_footer(students)
 
 # -----------------------------------
-def print_students_by_letter(students, letter)
-  students.each do |student|
-    if student[:name][0] == letter
+
+def choose_student_letter
+  puts_multiple("-----------------------",
+  "Please type the first letter of names of students you wish to list.",
+  "Will default to \"a\" if no input given")
+  letter = STDIN.gets.chomp
+  if letter.empty?
+    print_students_by_letter
+  else
+    print_students_by_letter(letter)
+  end
+end
+
+def print_students_by_letter(letter="a")
+  @students.each do |student|
+    if student[:name][0].downcase == letter
       puts "#{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
 end
 
-def print_students_names_shorter_than_n(students, name_length)
-  students.each do |student|
+def choose_student_name_length
+  puts_multiple("------------------",
+  "Choose value to display student name lengths less than",
+  "e.g. 5 will display all names less than 5 characters in length",
+  "Defaults to \"10\"")
+  name_length = STDIN.gets.chomp
+  if name_length.empty?
+    print_students_names_shorter_than_n
+  else
+    print_students_names_shorter_than_n(name_length.to_i)
+  end
+end
+
+def print_students_names_shorter_than_n(name_length=10)
+  @students.each do |student|
     if student[:name].length < name_length
       puts "#{student[:name]} (#{student[:cohort]} cohort)"
     end
@@ -224,3 +254,7 @@ def print_students_by_cohort(students)
   end
   
 end
+
+
+try_load_students
+interactive_menu
