@@ -41,9 +41,9 @@ def print_footer
 end
 
 def input_students
-  puts_multiple("Please enter student information.", "To finish, just hit return twice.")
+  puts_multiple("---------------------","Please enter student information.", "To finish, just hit return twice.")
   while true do
-    puts "Enter student name:"
+    puts_multiple("--------------","Enter student name:")
     name = STDIN.gets.chomp
     break if name.empty?
     puts "Enter student cohort:"
@@ -99,11 +99,12 @@ def try_load_students
 end
 
 def print_menu_options
-  puts "1: Input student information."
-  puts "2: Show student information."
-  puts "3: Save list of students to students.csv"
-  puts "4: Load list of students from students.csv"
-  puts "9: Exit directory."
+  puts_multiple("-------------------------",
+  "1: Input student information.",
+  "2: Show student information.",
+  "3: Save list of students to students.csv",
+  "4: Load list of students from students.csv",
+  "9: Exit directory.")
 end
 
 def show_students
