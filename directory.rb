@@ -55,10 +55,14 @@ def input_students
     cohort = STDIN.gets.chomp
     cohort = :november if cohort.empty?
     
-    @students << { name: name, cohort: cohort.to_sym }
+    add_student(name, cohort)
     puts "There are now #{@students.count} students"
     
   end
+end
+
+def add_student(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 def save_students
@@ -76,7 +80,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    add_student(name, cohort)
   end
   file.close
 end
