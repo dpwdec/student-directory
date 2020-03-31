@@ -62,9 +62,20 @@ def add_student(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
+def choose_save_file
+  puts_multiple("---------------------", 
+  "Please type the name of the file to save to.",
+  "Or press return to load default")
+  filename = STDIN.gets.chomp
+  if filename.empty?
+    save_students
+  else
+    save_students(filename)
+  end
+end
+
 def save_students(filename = "students.csv")
   file = File.open(filename, "w")
-  
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -72,6 +83,18 @@ def save_students(filename = "students.csv")
   end
   file.close
   puts "saved #{@students.count} to #{filename}"
+end
+
+def choose_load_file
+  puts_multiple("---------------------", 
+  "Please type the name of the file to load.",
+  "Or press return to load default")
+  filename = STDIN.gets.chomp
+  if filename.empty?
+    load_students
+  else
+    try_load_file(filename)
+  end
 end
 
 def load_students(filename = "students.csv")
@@ -89,12 +112,16 @@ def try_load_students
   if filename.nil?
     load_students
   else
-    if File.exists?(filename)
-      load_students(filename)
-    else
-      puts "Sorry, #{filename} doesn't exist."
-      exit
-    end
+    try_load_file(filename)
+  end
+end
+
+def try_load_file(filename)
+  if File.exists?(filename)
+    load_students(filename)
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
   end
 end
 
@@ -120,9 +147,9 @@ def process(selection)
     when "2"
       show_students
     when "3"
-      save_students
+      choose_save_file
     when "4"
-      load_students
+      choose_load_file
     when "9"
       exit
     else
